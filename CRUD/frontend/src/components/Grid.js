@@ -31,7 +31,7 @@ const Th = styled.th`
   }
 `;
 
-const Td = styled.td`
+export const Td = styled.td`
   padding-top: 15px;
   text-align: ${(props) => (props.alignCenter ? "center" : "start")};
   width: ${(props) => (props.width ? props.width : "auto")};
