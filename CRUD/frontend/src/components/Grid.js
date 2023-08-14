@@ -27,19 +27,20 @@ export const Th = styled.th`
   padding-bottom: 5px;
 
   @media (max-width: 500px) {
-    ${(props) => props.onlyWeb && "display: none"}
+    display: ${props => (props.onlyWeb ? "none" : "table-cell")};
   }
 `;
 
 export const Td = styled.td`
   padding-top: 15px;
-  text-align: ${(props) => (props.alignCenter ? "center" : "start")};
-  width: ${(props) => (props.width ? props.width : "auto")};
+  text-align: ${props => (props.alignCenter ? "center" : "start")};
+  width: ${props => (props.width ? props.width : "auto")};
 
   @media (max-width: 500px) {
-    ${(props) => props.onlyWeb && "display: none"}
+    display: ${props => (props.onlyWeb ? "none" : "table-cell")};
   }
 `;
+
 
 const Grid = ({ users, setUsers, setOnEdit }) => {
   const handleEdit = (item) => {
