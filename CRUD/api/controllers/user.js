@@ -11,7 +11,7 @@ export const getUsers = (_, res) => {
 )};
 
 export const addUser = (req, res) => {
-    const q = "INSERT INTO usuarios(`nome`, `email`, `Idade`, `fone` VALUES(?)";
+    const q = "INSERT INTO usuarios (`nome`, `email`, `Idade`, `fone`) VALUES (?)";
 
     const values = [
         req.body.nome,
@@ -20,12 +20,13 @@ export const addUser = (req, res) => {
         req.body.fone,
     ];
 
-    db.query(q, [values], (err) =>{
-      if (err) return res.json(err);
+    db.query(q, [values], (err) => {
+        if (err) return res.json(err);
 
-      return res.status(200).json("Usuario criado com sucesso.");
+        return res.status(200).json("Usuario criado com sucesso.");
     });
 }
+
 
 
 export const updateUser = (req, res) => {
@@ -46,11 +47,11 @@ export const updateUser = (req, res) => {
 }
 
 export const deleteUser = (req, res) => {
-    const q = "DELETE usuarios WHERE `id` = ?";
-
-    db.query(q, [req.params.id], (err) =>{
+    const q = "DELETE FROM usuarios WHERE `id` = ?";
+  
+    db.query(q, [req.params.id], (err) => {
       if (err) return res.json(err);
-
-      return res.status(200).json("Usuario deletado com sucesso.");
+  
+      return res.status(200).json("Usuário deletado com sucesso.");
     });
-}
+  };
