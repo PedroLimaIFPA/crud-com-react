@@ -1,7 +1,7 @@
 import axios from "axios";
-import React, { useEffect, useRef, useState } from "react"; // Adicionei useState
+import React, { useEffect, useRef } from "react";
 import styled from "styled-components";
-import { Toast, toast } from "react-toastify";
+import { toast } from "react-toastify";
 
 const FormContainer = styled.form`
   display: flex;
@@ -36,24 +36,24 @@ const Button = styled.button`
   border: none;
   background-color: #2c73d2;
   color: white;
-  height: 40px;
+  height: 42px;
 `;
 
 const Form = ({ getUsers, onEdit, setOnEdit }) => {
   const ref = useRef();
-  const [getOnEdit, setGetOnEdit] = useState(null); // Adicionei o useState
 
   useEffect(() => {
     if (onEdit) {
       const user = ref.current;
+
       user.nome.value = onEdit.nome;
       user.email.value = onEdit.email;
       user.fone.value = onEdit.fone;
-      user.Idade.value = onEdit.Idade;
+      user.data_nascimento.value = onEdit.data_nascimento;
     }
   }, [onEdit]);
 
-  const handleSumit = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     const user = ref.current;
@@ -62,9 +62,9 @@ const Form = ({ getUsers, onEdit, setOnEdit }) => {
       !user.nome.value ||
       !user.email.value ||
       !user.fone.value ||
-      !user.Idade.value
+      !user.data_nascimento.value
     ) {
-      return toast.warn("Preencha todos os campos");
+      return toast.warn("Preencha todos os campos!");
     }
 
     if (onEdit) {
@@ -73,17 +73,17 @@ const Form = ({ getUsers, onEdit, setOnEdit }) => {
           nome: user.nome.value,
           email: user.email.value,
           fone: user.fone.value,
-          Idade: user.Idade.value,
+          data_nascimento: user.data_nascimento.value,
         })
         .then(({ data }) => toast.success(data))
         .catch(({ data }) => toast.error(data));
     } else {
       await axios
-        .post("http://localhost:8800/", {
+        .post("http://localhost:8800", {
           nome: user.nome.value,
           email: user.email.value,
           fone: user.fone.value,
-          Idade: user.Idade.value,
+          data_nascimento: user.data_nascimento.value,
         })
         .then(({ data }) => toast.success(data))
         .catch(({ data }) => toast.error(data));
@@ -92,21 +92,21 @@ const Form = ({ getUsers, onEdit, setOnEdit }) => {
     user.nome.value = "";
     user.email.value = "";
     user.fone.value = "";
-    user.Idade.value = "";
+    user.data_nascimento.value = "";
 
-    setOnEdit(null); 
+    setOnEdit(null);
     getUsers();
   };
 
   return (
-    <FormContainer ref={ref} onSubmit={handleSumit}>
+    <FormContainer ref={ref} onSubmit={handleSubmit}>
       <InputArea>
         <Label>Nome</Label>
         <Input name="nome" />
       </InputArea>
       <InputArea>
-        <Label>Email</Label>
-        <Input name="email" type="email" /> { }
+        <Label>E-mail</Label>
+        <Input name="email" type="email" />
       </InputArea>
       <InputArea>
         <Label>Telefone</Label>
@@ -114,7 +114,7 @@ const Form = ({ getUsers, onEdit, setOnEdit }) => {
       </InputArea>
       <InputArea>
         <Label>Idade</Label>
-        <Input name="Idade" />
+        <Input name="Idade"  />
       </InputArea>
 
       <Button type="submit">SALVAR</Button>
