@@ -48,8 +48,9 @@ const Form = ({ getUsers, onEdit, setOnEdit }) => {
 
       user.nome.value = onEdit.nome;
       user.email.value = onEdit.email;
-      user.fone.value = onEdit.fone;
       user.Idade.value = onEdit.Idade;
+      user.fone.value = onEdit.fone;
+      
     }
   }, [onEdit]);
 
@@ -61,8 +62,9 @@ const Form = ({ getUsers, onEdit, setOnEdit }) => {
     if (
       !user.nome.value ||
       !user.email.value ||
-      !user.fone.value ||
-      !user.Idade.value
+      !user.Idade.value ||
+      !user.fone.value 
+      
     ) {
       return toast.warn("Preencha todos os campos!");
     }
@@ -72,8 +74,8 @@ const Form = ({ getUsers, onEdit, setOnEdit }) => {
         .put("http://localhost:8800/" + onEdit.id, {
           nome: user.nome.value,
           email: user.email.value,
-          fone: user.fone.value,
           Idade: user.Idade.value,
+          fone: user.fone.value,
         })
         .then(({ data }) => toast.success(data))
         .catch(({ data }) => toast.error(data));
@@ -82,8 +84,8 @@ const Form = ({ getUsers, onEdit, setOnEdit }) => {
         .post("http://localhost:8800", {
           nome: user.nome.value,
           email: user.email.value,
-          fone: user.fone.value,
           Idade: user.Idade.value,
+          fone: user.fone.value,
         })
         .then(({ data }) => toast.success(data))
         .catch(({ data }) => toast.error(data));
@@ -91,8 +93,8 @@ const Form = ({ getUsers, onEdit, setOnEdit }) => {
 
     user.nome.value = "";
     user.email.value = "";
-    user.fone.value = "";
     user.Idade.value = "";
+    user.fone.value = "";
 
     setOnEdit(null);
     getUsers();
@@ -109,14 +111,14 @@ const Form = ({ getUsers, onEdit, setOnEdit }) => {
         <Input name="email" type="email" />
       </InputArea>
       <InputArea>
-        <Label>Telefone</Label>
-        <Input name="fone" />
-      </InputArea>
-      <InputArea>
         <Label>Idade</Label>
         <Input name="Idade"  />
       </InputArea>
-
+      <InputArea>
+        <Label>Telefone</Label>
+        <Input name="fone" />
+      </InputArea>
+  
       <Button type="submit">SALVAR</Button>
     </FormContainer>
   );
